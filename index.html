@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paragraph Summariser</title>
+    <style>
+        /* Style for the header section */
+header {
+    background-color: #4CAF50;
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+    border-radius: 8px 8px 0 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Style for the header h1 */
+header h1 {
+    margin: 0;
+    font-size: 32px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Style for the header p */
+header p {
+    margin: 10px 0 0;
+    font-size: 18px;
+    opacity: 0.8;
+}
+
+/* Style for the header button */
+header button {
+    padding: 10px 20px;
+    font-size: 18px;
+    background-color: #357a38;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+header button:hover {
+    background-color: #2e6e34;
+}
+
+        /* Style for the header section */
+
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        textarea {
+            width: 100%;
+            height: 200px;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            resize: none;
+        }
+        select {
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+       
+        /* Style for the summary type label */
+label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+
+/* Style for the output container */
+#output {
+    margin-top: 20px;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    line-height: 1.6;
+    font-size: 16px;
+    overflow-wrap: break-word;
+}
+
+/* Style for the output heading */
+#output h2 {
+    margin-top: 0;
+}
+
+/* Style for the error message */
+#error-msg {
+    color: red;
+    font-style: italic;
+    margin-top: 10px;
+}
+
+/* Style for the loading spinner */
+.spinner {
+    display: none;
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-left-color: #333;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    animation: spin 1s linear infinite;
+    margin: 0 auto;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Paragraph Summariser</h1>
+        <textarea id="inputText" placeholder="Enter your text here..."></textarea>
+        <label for="summaryType">Select Summary Type:</label>
+        <select id="summaryType">
+            <option value="extractive">Extractive Summary</option>
+            <option value="abstractive">Abstractive Summary</option>
+        </select>
+        <br>
+        <button onclick="summarize()">Summarize</button>
+        <div id="output"></div>
+    </div>
+</body>
+
+<script>
+    // Function to summarize the paragraph based on user selection
+function summarize() {
+    // Get input text from the textarea
+    var inputText = document.getElementById("inputText").value;
+    
+    // Get the selected summary type
+    var summaryType = document.getElementById("summaryType").value;
+    
+    // Check if the input text is empty
+    if (inputText.trim() === "") {
+        document.getElementById("output").innerHTML = "<p id='error-msg'>Please enter some text to summarize.</p>";
+        return;
+    }
+    
+    // Display loading spinner while summarization is in progress
+    document.getElementById("output").innerHTML = "<div class='spinner'></div>";
+    
+    // Simulate a delay for summarization (you can replace this with actual summarization logic)
+    setTimeout(function() {
+        // Call the summarization function based on the selected summary type
+        var summary = "";
+        if (summaryType === "extractive") {
+            summary = extractiveSummarize(inputText);
+        } else if (summaryType === "abstractive") {
+            summary = abstractiveSummarize(inputText);
+        }
+        
+        // Display the summarized output
+        document.getElementById("output").innerHTML = "<h2>Summary:</h2><p>" + summary + "</p>";
+    }, 2000); // Simulated 2-second delay for summarization
+}
+
+// Example function for extractive summarization (replace this with your actual logic)
+function extractiveSummarize(text) {
+    // Just return the first 100 characters as a simple example
+    return text.substring(0, 100) + "...";
+}
+
+// Example function for abstractive summarization (replace this with your actual logic)
+function abstractiveSummarize(text) {
+    // Just return the last 100 characters as a simple example
+    return text.substring(text.length - 100) + "...";
+}
+
+</script>
+   
